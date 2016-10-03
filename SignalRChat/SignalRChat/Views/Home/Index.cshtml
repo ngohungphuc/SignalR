@@ -7,6 +7,11 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-lg-4"><h3 class="panel-title">Real Time Chat</h3></div>
+                <div class="col-lg-8">
+                    <input ng-hide="inRoom" type="text" ng-model="roomName" class="input-sm pull-left form-control" autofocus style="width:60%" placeholder="room" />
+                    <button ng-hide="inRoom" ng-click="joinRoom()" class="btn btn-primary btn-sm">Join Room</button>
+                    <button ng-show="inRoom" ng-click="leaveRoom()" class="btn btn-warning btn-sm">Leave Room</button>
+                </div>
             </div>
         </div>
 
@@ -15,8 +20,10 @@
                 <div ng-repeat="msg in messages">{{msg.message}}</div>
             </div>
             <div>
-                <input ng-model="newMessage" class="form-control input-sm pull-left" style="width:80%" type="text" placeholder="chat message" />
-                <button class="pull-right btn btn-primary btn-sm" ng-click="sendMessage()">Send</button>
+                <input ng-show="nameSet" ng-model="newMessage" class="form-control input-sm pull-left" style="width:80%" type="text" placeholder="chat message" />
+                <button ng-show="nameSet" class="pull-right btn btn-primary btn-sm" ng-click="sendMessage()">Send</button>
+                <input ng-hide="nameSet" ng-model="name" class="input-sm pull-left form-control" placeholder="your name">
+                <button ng-hide="nameSet" ng-click="setName()" class="pull-right btn btn-primary btn-sm">Set name</button>
             </div>
         </div>
     </div>
