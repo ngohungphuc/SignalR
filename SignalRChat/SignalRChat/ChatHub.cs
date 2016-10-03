@@ -10,9 +10,9 @@ namespace SignalRChat
     [HubName("chat")]
     public class ChatHub : Hub
     {
-        public void Hello()
+        public void SaySomething(string message)
         {
-            Clients.All.hello();
+            Clients.All.speak(message + " from the server");
         }
     }
 }
