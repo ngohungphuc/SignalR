@@ -6,7 +6,7 @@
         $.connection.hub.start();
     });
 
-    $.connection.error(function (err) {
+    $.connection.hub.error(function (err) {
         console.log('Error occured ' + err);
     });
 
