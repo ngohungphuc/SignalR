@@ -9,10 +9,17 @@
 </head>
 <body>
     <script>
-        $.connection.hub.start().done(function () {
-            alert("Connected");
-        }).fail(function () {
-            alert("Not Connected");
-        });</script>
+        $(document)
+            .ready(function () {
+                //myhub is the name of hub in the server
+                var obj = $.connection.myhub;
+                //create connection to signalR server
+                $.connection.hub.start().done(function () {
+                    obj.server.serverMethod();
+                }).fail(function () {
+                    alert("Not Connected");
+                });
+            });
+    </script>
 </body>
 </html>
