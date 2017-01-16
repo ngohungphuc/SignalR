@@ -10,7 +10,7 @@
 <body>
     <p>
         Welcome Mr/Mrs
-        <div id="name"></div>
+        <span id="name"></span>
     </p>
     <p> Enter your message <textarea id="msg" rows="5"></textarea></p>
     <input id="send" value="Send" type="button" />
@@ -28,6 +28,11 @@
                 obj.client.clientMethod = function (name, msg) {
                     $("#msgList").append("<li>" + name + ":" + msg + "</li>");
                 }
+
+                obj.client.log = function (data) {
+                    alert(data);
+                }
+
                 //step 3 -establish connection
                 $.connection.hub.start().done(function () {
                     $("#send")
