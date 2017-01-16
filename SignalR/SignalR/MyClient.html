@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App Using SignalR</title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="../signalr/hubs" type="text/javascript"></script>
+</head>
+<body>
+    <script>
+        $.connection.hub.start().done(function () {
+            alert("Connected");
+        }).fail(function () {
+            alert("Not Connected");
+        });</script>
+</body>
+</html>
