@@ -15,7 +15,9 @@
                 var obj = $.connection.myhub;
                 //create connection to signalR server
                 $.connection.hub.start().done(function () {
-                    obj.server.serverMethod();
+                    obj.server.serverMethod("Hi").done(function(data) {
+                        alert(data);
+                    });
                 }).fail(function () {
                     alert("Not Connected");
                 });

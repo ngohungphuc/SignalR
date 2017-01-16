@@ -10,9 +10,9 @@ namespace SignalR
     [HubName("myhub")]
     public class MyHub : Hub
     {
-        public string serverMethod()
+        public string serverMethod(string msg)
         {
-            return "Something";
+            return msg;
         }
     }
 }
