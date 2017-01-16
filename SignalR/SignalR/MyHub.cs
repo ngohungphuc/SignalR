@@ -40,7 +40,9 @@ namespace SignalR
         public void servermethod(string name, string msg)
         {
             string connectionId = Context.ConnectionId;
-            Clients.All.clientMethod(name, connectionId, msg);
+            Clients.Others.clientMethod(name, connectionId, msg);
+            //Clients.Caller.clientMethod(name, connectionId, msg);
+            //Clients.All.clientMethod(name, connectionId, msg);
         }
 
         public override Task OnConnected()
