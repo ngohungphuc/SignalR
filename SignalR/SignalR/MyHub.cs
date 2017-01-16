@@ -14,5 +14,14 @@ namespace SignalR
         {
             return msg;
         }
+
+        /// <summary>
+        /// return message to all client
+        /// </summary>
+        /// <param name="msg"></param>
+        public void serverToClient(string msg)
+        {
+            Clients.All.clientMethod(msg);
+        }
     }
 }

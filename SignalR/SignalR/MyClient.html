@@ -13,11 +13,21 @@
             .ready(function () {
                 //myhub is the name of hub in the server
                 var obj = $.connection.myhub;
+
+                obj.client.clientMethod = function (data) {
+                    alert(data);
+                }
                 //create connection to signalR server
                 $.connection.hub.start().done(function () {
-                    obj.server.serverMethod("Hi").done(function(data) {
-                        alert(data);
-                    });
+                    //call to server
+                    //obj.server.serverMethod("Hi").done(function(data) {
+                    //    alert(data);
+                    //});
+
+                    //server to client
+                    //and server to the obj.client.method so both of method will receive data
+                    obj.server.serverToClient("Hi");
+
                 }).fail(function () {
                     alert("Not Connected");
                 });
