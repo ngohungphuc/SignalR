@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App Using SignalR</title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="../signalr/hubs" type="text/javascript"></script>
+</head>
+<body>
+    <p>
+        Welcome Mr/Mrs
+        <div id="name"></div>
+    </p>
+    <p> Enter your message <textarea id="msg" rows="5"></textarea></p>
+    <input id="send" value="Send" type="button" />
+    <script>
+        $(document)
+            .ready(function () {
+                var name = prompt("Enter your name", "");
+                $("#name").html(name);
+
+                //step 3 -establish connection
+                $.connection.hub.start();
+            });
+    </script>
+</body>
+</html>
