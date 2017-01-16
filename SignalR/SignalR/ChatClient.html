@@ -25,12 +25,13 @@
                 var obj = $.connection.myhub;
 
                 //step 6 -creating client method
-                obj.client.clientMethod = function (name, msg) {
-                    $("#msgList").append("<li>" + name + ":" + msg + "</li>");
+                obj.client.clientMethod = function (name, connectionId, msg) {
+                    $("#msgList").append("<li>" + name + "(" + connectionId + ")" + ": " + msg + "</li>");
                 }
 
+                //on connect and disconnect method
                 obj.client.log = function (data) {
-                    alert(data);
+                    console.log(data);
                 }
 
                 //step 3 -establish connection
