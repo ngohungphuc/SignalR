@@ -69,18 +69,30 @@ namespace SignalR
         //    return Clients.All.log("DisConnected " + DateTime.Now);
         //}
 
-        public override Task OnConnected()
+        //public override Task OnConnected()
+        //{
+        //    ConnectionIds.Add(Context.ConnectionId);
+        //    return base.OnConnected();
+        //}
+
+        //public void servermethod(string name, string msg)
+        //{
+        //    string ConId = Context.ConnectionId;
+        //    //send message to second connection
+        //    Clients.Client(ConnectionIds[1]).clientmethod(name, ConId, msg);
+        //    //we have allexcept method
+        //}
+
+        public void join(string group)
         {
-            ConnectionIds.Add(Context.ConnectionId);
-            return base.OnConnected();
+            Groups.Add(Context.ConnectionId, group);
+            //Groups.Remove();
         }
 
         public void servermethod(string name, string msg)
         {
             string ConId = Context.ConnectionId;
-            //send message to second connection
-            Clients.Client(ConnectionIds[1]).clientmethod(name, ConId, msg);
-            //we have allexcept method
+            Clients.All.clientmethod(name, ConId, msg);
         }
     }
 }

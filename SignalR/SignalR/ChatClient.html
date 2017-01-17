@@ -19,8 +19,10 @@
         $(document)
             .ready(function () {
                 var name = prompt("Enter your name", "");
+                var g = prompt("Enter group name", "");
                 $("#name").html(name);
 
+                
                 //step 4- ref to proxy class
                 var obj = $.connection.myhub;
 
@@ -36,6 +38,7 @@
 
                 //step 3 -establish connection
                 $.connection.hub.start().done(function () {
+                    obj.server.join(g);
                     $("#send")
                         .click(function () {
                             //step 5 - call server method function
