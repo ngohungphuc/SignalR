@@ -89,10 +89,11 @@ namespace SignalR
             //Groups.Remove();
         }
 
-        public void servermethod(string name, string msg)
+        public void servermethod(string name, string msg, string group)
         {
             string ConId = Context.ConnectionId;
-            Clients.All.clientmethod(name, ConId, msg);
+            //send to specific group
+            Clients.Group(group).clientmethod(name, ConId, msg);
         }
     }
 }
