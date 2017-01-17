@@ -96,4 +96,14 @@ namespace SignalR
             Clients.Group(group).clientmethod(name, ConId, msg);
         }
     }
+
+    //notify for all client
+    public class Notify
+    {
+        public static void Say(string msg)
+        {
+            var AllContext = GlobalHost.ConnectionManager.GetHubContext<MyHub>();
+            AllContext.Clients.All.sayClient(msg);
+        }
+    }
 }

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.6.4.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.signalR-1.0.0.js" type="text/javascript"></script>
+    <script src="../signalr/hubs" type="text/javascript"></script>
+</head>
+<body>
+<table>
+<tr><td colspan="2"><ul id="logList"></ul>  </td></tr>
+<tr>
+<td>Welcome Mr/Ms </td><td><div id="name"/></td>
+</tr>
+<tr>
+<td>Enter Your Message:</td><td><textarea rows="5" id="msg"></textarea><br/>
+<input id="send" type="button" value="Send" /></td>
+</tr>
+<tr>
+<td><ul id="msgList"></ul></td>
+</tr>
+</table>
+<script type="text/javascript">
+    function querySt(Key) {
+        var url = window.location.href;
+        KeysValues = url.split(/[\?&]+/);
+        for (i = 0; i < KeysValues.length; i++) {
+            KeyValue = KeysValues[i].split("=");
+            if (KeyValue[0] == Key) {
+                return KeyValue[1];
+            }
+        }
+    }
+    $(document).ready(function () {
+
+        var n = querySt("n");
+        $("#name").html(n);
+
+        var g = querySt("g");
+
+
+        var obj = $.connection.myhub;
+        obj.state.n = n;
+        obj.state.g = g;
+        obj.client.clientmethod = function (name, conId, msg) {
+            $("#msgList").append("<li>" + name + "(" + conId + ")" + " : " + msg + "</li>");
+        }
+
+        $.connection.hub.start().done(function () {
+            obj.server.join(g);
+            $("#send").click(function () {
+                obj.server.servermethod($("#msg").val());
+            });
+        });
+
+    });
+</script>
+
+</body>
+</html>
