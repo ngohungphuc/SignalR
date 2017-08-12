@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Chapter 3 - Getting Started with Hub Implementation</title>
+</head>
+<body>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var broadcaster = $.connection.chapter3Hub;
+            broadcaster.client.displayText = function (text) {
+                $('#messages').append('<li>' + text + '</li>');
+            };
+
+            var sender = $.connection.chapter3SecondHub;
+
+            sender.client.displayText = function(text) {
+                $('#messages').append('<li>' + text + '</li>');
+            }
+
+            $.connection.hub.start().done(function () {
+                $("#broadcast").click(function () {
+                    broadcaster.server.broadcastMessage($('#msg').val());
+                });
+
+                $("#send").click(function () {
+                    sender.server.sendMessage($('#msg').val());
+                });
+            });
+        });
+    </script>
+
+    <div>
+        <input type="text" id="msg" />
+        <input type="button" id="broadcast" value="Broadcast" />
+        <input type="button" id="send" value="Send" />
+        <ul id="messages"></ul>
+    </div>
+</body>
+</html>
