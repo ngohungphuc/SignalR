@@ -10,20 +10,29 @@
     <script src="/signalr/hubs" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-            var broadcaster = $.connection.chapter3Hub;
-            broadcaster.client.displayText = function (text) {
-                $('#messages').append('<li>' + text + '</li>');
+            var broadcaster = $.connection.FirstHub;
+            broadcaster.client.displayText = function (name, message) {
+                $('#messages').append('<li>' + name + ' said: ' + message + '</li>');
             };
 
-            var sender = $.connection.chapter3SecondHub;
+            var sender = $.connection.SecondHub;
 
-            sender.client.displayText = function(text) {
+            sender.client.displayText = function (text) {
                 $('#messages').append('<li>' + text + '</li>');
             }
 
             $.connection.hub.start().done(function () {
                 $("#broadcast").click(function () {
-                    broadcaster.server.broadcastMessage($('#msg').val());
+                    //broadcaster.server.broadcastMessage({
+                    //    Name: $('#name').val(),
+                    //    Message: $('#message').val()
+                    //});
+                    broadcaster.server.join($('#groupName').val());
+                    broadcaster.server.broadcastMessage({
+                        Name: $('#name').val(),
+                        Message: $('#message').val(), Group: $('#groupName').val()
+                    });
+                    broadcaster.server.leave($('#groupName').val());
                 });
 
                 $("#send").click(function () {
@@ -33,11 +42,13 @@
         });
     </script>
 
-    <div>
-        <input type="text" id="msg" />
-        <input type="button" id="broadcast" value="Broadcast" />
-        <input type="button" id="send" value="Send" />
-        <ul id="messages"></ul>
-    </div>
+<div>
+    <input type="text" id="groupName" />
+    <input type="text" id="name"/>
+    <input type="text" id="message"/>
+    <input type="button" id="broadcast" value="Broadcast"/>
+    <input type="button" id="send" value="Send"/>
+    <ul id="messages"></ul>
+</div>
 </body>
 </html>
