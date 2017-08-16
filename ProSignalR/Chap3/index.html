@@ -15,11 +15,11 @@
                 $('#messages').append('<li>' + name + ' said: ' + message + '</li>');
             };
 
-            var sender = $.connection.SecondHub;
+            //var sender = $.connection.SecondHub;
 
-            sender.client.displayText = function (text) {
-                $('#messages').append('<li>' + text + '</li>');
-            }
+            //sender.client.displayText = function (text) {
+            //    $('#messages').append('<li>' + text + '</li>');
+            //}
 
             $.connection.hub.start().done(function () {
                 $("#broadcast").click(function () {
@@ -28,6 +28,7 @@
                     //    Message: $('#message').val()
                     //});
                     broadcaster.server.join($('#groupName').val());
+                    broadcaster.state.GroupName = $('#groupName').val();
                     broadcaster.server.broadcastMessage({
                         Name: $('#name').val(),
                         Message: $('#message').val(), Group: $('#groupName').val()
@@ -35,19 +36,19 @@
                     broadcaster.server.leave($('#groupName').val());
                 });
 
-                $("#send").click(function () {
-                    sender.server.sendMessage($('#msg').val());
-                });
+                //$("#send").click(function () {
+                //    sender.server.sendMessage($('#msg').val());
+                //});
             });
         });
     </script>
 
 <div>
     <input type="text" id="groupName" />
-    <input type="text" id="name"/>
-    <input type="text" id="message"/>
-    <input type="button" id="broadcast" value="Broadcast"/>
-    <input type="button" id="send" value="Send"/>
+    <input type="text" id="name" />
+    <input type="text" id="message" />
+    <input type="button" id="broadcast" value="Broadcast" />
+
     <ul id="messages"></ul>
 </div>
 </body>

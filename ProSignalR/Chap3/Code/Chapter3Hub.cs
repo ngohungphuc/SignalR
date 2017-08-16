@@ -14,7 +14,8 @@ namespace Chap3.Code
         public void BroadcastMessage(Person person)
         {
             //Clients.All.displayText(person.Name, person.Message);
-            Clients.Group(person.Group).displayText(person.Name, person.Message);
+            //Clients.Group(person.Group).displayText(person.Name, person.Message);
+            Clients.Group((string)Clients.Caller.GroupName).displayText(person.Name, person.Message);
         }
 
         public Task Join(string groupName)
@@ -25,6 +26,21 @@ namespace Chap3.Code
         public Task Leave(string groupName)
         {
             return Groups.Remove(Context.ConnectionId, groupName);
+        }
+
+        public override Task OnConnected()
+        {
+            return base.OnConnected();
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            return base.OnDisconnected(stopCalled);
+        }
+
+        public override Task OnReconnected()
+        {
+            return base.OnReconnected();
         }
     }
 }
