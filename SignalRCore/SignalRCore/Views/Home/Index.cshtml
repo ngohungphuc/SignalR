@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<span id="MessageDisplay"></span>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/signalr/jquery.signalR.min.js"></script>
+<script src="Signalr/hubs"></script>
+
+<script>
+    var myHubProxy = $.connection.hub.createHubProxy('myHub');
+
+    myHubProxy.on('clientListener', function (msg) {
+        console.log(msg);
+        $('#MessageDisplay').text(msg);
+    });
+
+    $.connection.hub.start().done(function () {
+        myHubProxy.invoke('MyServerFunction');
+    });
+</script>
