@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+    <title>Simple Chat</title>
+
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+
+    <!--<script src="Scripts/json2.js" type="text/javascript"></script>-->
+    <script src="Scripts/jquery-1.8.2.js" type="text/javascript"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery.signalR-1.0.0.js"></script>
+
+    <script type="text/javascript">
+        var proxy;
+
+        $(function () {
+            $.connection.hub.logging = true;
+
+            var connection = $.hubConnection();
+            proxy = connection.createHubProxy('chat');
+            proxy.on('newMessage', onNewMessage);
+
+            $('#send').click(onSend);
+
+            connection.start();
+        });
+
+
+        function onNewMessage(message) {
+            $('#messages').append('<li>' + message + '</li>');
+        };
+
+        function onSend() {
+            proxy.invoke('sendMessage', $('#message').val());
+        };
+    </script>
+</head>
+<body>
+    <div class="hero-unit">
+        <h2>Chat</h2>
+        <input type="text" id="message" />
+        <input type="button" id="send" value="Send message" />
+
+        <ul id="messages"></ul>
+    </div>
+</body>
+</html>

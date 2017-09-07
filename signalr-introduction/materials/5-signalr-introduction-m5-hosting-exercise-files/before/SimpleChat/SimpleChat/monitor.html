@@ -1,0 +1,38 @@
+﻿<html>
+<head>
+    <title>convRse</title>
+     <link href="Content/bootstrap-cosmo.css" rel="stylesheet" />
+        <style>
+            body
+            {
+                background-color:lightblue;
+            }
+        </style>
+
+        <!--<script src="Scripts/json2.js" type="text/javascript"></script>-->
+        <script src="Scripts/jquery-1.8.2.js" type="text/javascript"></script>    
+        <script src="Scripts/jquery.signalR-1.0.0.min.js"></script>
+        <script src="signalr/hubs" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            var monitor;
+            
+            $(function () {
+                monitor = $.connection.monitor;
+                monitor.client.newEvent = onNewEvent;
+                
+                $.connection.hub.start();
+            });
+
+            function onNewEvent(eventType, client) {
+                $('#messages').append('<li>' + eventType + ' from ' + client + '</li>');
+            };
+        </script>
+</head>
+    <body>
+        <div>
+            <h2>SignalR monitoR</h2>
+            <ul id="messages"></ul>
+        </div>
+    </body>
+</html>
